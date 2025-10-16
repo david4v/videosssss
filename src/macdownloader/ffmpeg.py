@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import platform
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from shutil import which
@@ -17,6 +18,10 @@ class FFmpegStatus:
 
 def locate_ffmpeg() -> FFmpegStatus:
     """Try to locate the ffmpeg executable and produce hints."""
+    bundled_path = _detect_bundled_ffmpeg()
+    if bundled_path:
+        return FFmpegStatus(path=bundled_path, hint="来自应用内置 ffmpeg")
+
     env_path = os.environ.get("FFMPEG_PATH")
     if env_path:
         candidate = Path(env_path).expanduser()
@@ -41,3 +46,34 @@ def locate_ffmpeg() -> FFmpegStatus:
     )
 
     return FFmpegStatus(path=None, hint=hint, warning=warning)
+
+
+def _detect_bundled_ffmpeg() -> Optional[Path]:
+    """Detect ffmpeg packaged alongside the application (PyInstaller, portable build)."""
+
+    candidates = []
+
+    if getattr(sys, "frozen", False):  # PyInstaller runtime
+        exe_dir = Path(sys.executable).resolve().parent
+        candidates.extend(
+            [
+                exe_dir / "ffmpeg" / "ffmpeg.exe",
+                exe_dir / "ffmpeg" / "ffmpeg",
+                exe_dir / "ffmpeg.exe",
+                exe_dir / "ffmpeg",
+            ]
+        )
+
+    # Also check next to the source tree (useful for developer zip packages)
+    here = Path(__file__).resolve().parent
+    candidates.extend(
+        [
+            here.parent / "ffmpeg" / "ffmpeg.exe",
+            here.parent / "ffmpeg" / "ffmpeg",
+        ]
+    )
+
+    for path in candidates:
+        if path.is_file():
+            return path
+    return None
