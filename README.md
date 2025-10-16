@@ -1,6 +1,6 @@
 # Orchard Video Downloader
 
-一个以 macOS 风格呈现的本地视频下载器，基于 [PySide6](https://doc.qt.io/qtforpython/) 桌面界面与 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 下载引擎，支持 HLS/DASH 等常见网站的视频抓取与 FFmpeg 合并。
+一个以 macOS 风格呈现的本地视频下载器，基于 [PySide6](https://doc.qt.io/qtforpython/) 桌面界面与 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 下载引擎，支持 HLS/DASH 等常见网站的视频抓取与 FFmpeg 合并。**界面只是苹果风格主题，应用可在 Windows 10/11、macOS 以及常见 Linux 桌面环境下运行。**
 
 ## 功能亮点
 - 🍎 **苹果风格界面**：使用 Fusion 主题 + 自定义配色打造轻量、干净的窗口体验。
@@ -8,22 +8,31 @@
 - 📊 **实时进度与日志**：展示百分比、速度、剩余时间，并在日志面板输出详细状态。
 - 🧰 **FFmpeg 检测**：自动检查 FFmpeg 路径并提供安装提示，针对 `4294967158/-138` 等常见错误给出指导。
 
-## 快速开始（适合“小白”）
-1. **安装 Python 3.10+**  
-   - Windows / macOS 从 [python.org](https://www.python.org/downloads/) 下载官方安装包，安装时勾选 “Add Python to PATH”。
-   - macOS 也可用 Homebrew：`brew install python`
-   - Linux 使用系统包管理器，例如 `sudo apt install python3 python3-venv`。
+## 最快方式：双击即用
 
-2. **下载本项目代码**  
-   - 点击仓库右上角 `Code` → `Download ZIP`，解压到任意目录。  
-   - 或者使用 Git：`git clone https://example.com/videosssss.git`
+> 如果你不想和命令行打交道，只需完成一次 Python 安装，然后照下面两个步骤即可。
 
-3. **打开终端 / 命令提示符**，切换到项目目录：
-   ```bash
-   cd path/to/videosssss
-   ```
+1. **第一次准备**
+   1. 安装 [Python 3.10+](https://www.python.org/downloads/)（Windows 记得勾选 *Add Python to PATH*）。
+   2. 下载本项目 ZIP 并解压。
+   3. **Windows 用户**：双击仓库根目录里的 `Launch_Orchard_Downloader.bat`，它会自动寻找 `pythonw/py` 并运行下方脚本。
+      - 如果未安装 Python，批处理窗口会提示下载安装地址。
+   4. **macOS / Linux 用户**：双击 `double_click_to_start.pyw` 即可；若系统阻止启动，请在提示框中选择仍要打开。
+   5. 首次启动会自动通过 `pip` 安装 PySide6 与 yt-dlp，安装过程中会弹窗提示，请耐心等待。
+   6. 如果自动安装失败，脚本会弹窗提示，同时把详细日志写到 `~/OrchardVideoDownloader-error.log` 方便排查。
 
-4. **创建并激活虚拟环境（推荐）**：
+2. **以后使用**
+   - Windows 保持双击 `Launch_Orchard_Downloader.bat`；macOS / Linux 继续双击 `double_click_to_start.pyw`。
+   - 如果你把整个文件夹复制到 U 盘/桌面，也只需要双击同一个文件即可。
+
+> **系统提醒**：
+> - Windows 批处理会尝试优先使用 `pyw.exe/pythonw.exe`，因此没有黑色命令行窗口弹出。
+> - macOS 第一次运行如果系统阻止打开，请在“系统设置 → 隐私与安全性”里选择“仍要打开”。
+
+## 进阶操作（需要终端）
+仍然可以使用传统的 Python 项目方式安装运行，这样便于开发和打包：
+
+1. **创建虚拟环境并激活**：
    ```bash
    python -m venv .venv
    # Windows
@@ -32,14 +41,10 @@
    source .venv/bin/activate
    ```
 
-5. **安装依赖**：
+2. **安装依赖并运行**：
    ```bash
    pip install --upgrade pip
    pip install .
-   ```
-
-6. **运行图形界面**：
-   ```bash
    python -m macdownloader
    ```
    - 第一次运行若提示缺少 FFmpeg，请根据状态栏提示安装（Windows 推荐 [gyan.dev](https://www.gyan.dev/ffmpeg/builds/) 提供的编译版，macOS 使用 `brew install ffmpeg`）。
@@ -52,7 +57,7 @@
      export FFMPEG_PATH="/usr/local/bin/ffmpeg"
      ```
 
-7. **开始下载**：
+3. **开始下载**：
    1. 粘贴视频网址。
    2. 选择保存目录（默认是“下载”文件夹）。
    3. 选择格式模板。

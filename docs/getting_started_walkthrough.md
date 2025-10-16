@@ -3,8 +3,8 @@
 这份演练假设你是第一次接触命令行或 Python，跟随步骤即可完成首次下载并熟悉常见报错的排查方式。
 
 ## 1. 准备环境
-1. 按照 `README.md` 的“快速开始”章节完成 Python 安装与虚拟环境创建。
-2. 在终端（或 PowerShell）执行：
+1. 如果你希望“一键启动”，先按照 `README.md` 的“最快方式：双击即用”完成初次双击（Windows 双击 `Launch_Orchard_Downloader.bat`，其余系统双击 `double_click_to_start.pyw`），让脚本自动安装依赖。
+2. 想进一步熟悉命令行，请继续下面的终端步骤，在虚拟环境中运行：
    ```bash
    pip install --upgrade pip
    pip install .
