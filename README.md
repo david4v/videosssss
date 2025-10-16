@@ -23,11 +23,14 @@
 ### 2. 仍想保持“下载源码 + 双击启动”
 
 > 如果你不想和命令行打交道，但手边已有 Python 环境，可照下面两个步骤操作。
+> 如果你不想和命令行打交道，只需完成一次 Python 安装，然后照下面两个步骤即可。
 
 1. **第一次准备**
    1. 安装 [Python 3.10+](https://www.python.org/downloads/)（Windows 记得勾选 *Add Python to PATH*）。
    2. 下载本项目 ZIP 并解压。
    3. **Windows 用户**：双击仓库根目录里的 `Launch_Orchard_Downloader.bat`，它会自动寻找 `pythonw/py` 并运行下方脚本；若缺少 Python，会弹出提示窗口。
+   3. **Windows 用户**：双击仓库根目录里的 `Launch_Orchard_Downloader.bat`，它会自动寻找 `pythonw/py` 并运行下方脚本。
+      - 如果未安装 Python，批处理窗口会提示下载安装地址。
    4. **macOS / Linux 用户**：双击 `double_click_to_start.pyw` 即可；若系统阻止启动，请在提示框中选择仍要打开。
    5. 首次启动会自动通过 `pip` 安装 PySide6 与 yt-dlp，安装过程中会弹窗提示，请耐心等待。
    6. 如果自动安装失败，脚本会弹窗提示，同时把详细日志写到 `~/OrchardVideoDownloader-error.log` 方便排查。
@@ -90,6 +93,9 @@
 - **Windows**：直接双击 `packaging/windows/build_portable.cmd`，完成后把 `dist/OrchardVideoDownloader/` 整个文件夹分享给最终用户。详见 [docs/windows_portable_build.md](docs/windows_portable_build.md)。
 - **macOS**：可使用 `pyinstaller --windowed --name OrchardDownloader src/macdownloader/__main__.py`，再用 `create-dmg`/`appdmg` 打包 DMG。
 - 无论哪个平台，都建议把 `ffmpeg` 与应用放在同一目录，或在启动后提示用户下载。Windows 版可以直接将 `ffmpeg.exe` 放入 `dist/OrchardVideoDownloader/ffmpeg/`。
+- Windows 可使用 [PyInstaller](https://pyinstaller.org/)：`pyinstaller -w -F src/macdownloader/__main__.py`
+- macOS 可使用 `pyinstaller --windowed --name OrchardDownloader src/macdownloader/__main__.py`，再用 `create-dmg`/`appdmg` 打包 DMG。
+- 打包后请将 `ffmpeg` 同目录分发，或在程序启动时提示用户下载。
 
 ## 开发说明
 - 依赖声明于 `pyproject.toml`。

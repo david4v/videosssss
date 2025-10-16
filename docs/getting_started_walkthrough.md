@@ -4,6 +4,7 @@
 
 ## 1. 准备环境
 1. 如果你希望“一键启动”，可以在 Windows 上直接使用 `packaging/windows/build_portable.cmd` 打包出 `OrchardVideoDownloader.exe`，或按照 `README.md` 中的“最快方式：双击即用”章节运行现成的启动脚本（Windows 双击 `Launch_Orchard_Downloader.bat`，其余系统双击 `double_click_to_start.pyw`），让脚本自动安装依赖。
+1. 如果你希望“一键启动”，先按照 `README.md` 的“最快方式：双击即用”完成初次双击（Windows 双击 `Launch_Orchard_Downloader.bat`，其余系统双击 `double_click_to_start.pyw`），让脚本自动安装依赖。
 2. 想进一步熟悉命令行，请继续下面的终端步骤，在虚拟环境中运行：
    ```bash
    pip install --upgrade pip
